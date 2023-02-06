@@ -9,8 +9,9 @@ interface OcupacionDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(ocupacion: OcupacionEntity)
 
+
     @Delete
-    suspend fun delete(ocupacion: OcupacionEntity)
+    suspend fun delete(ocupacionEntity: OcupacionEntity)
 
     @Query("""
         SELECT * 
@@ -20,8 +21,12 @@ interface OcupacionDao {
     """)
     suspend fun find(ocupacionId: Int): OcupacionEntity?
 
-    @Query("SELECT * FROM Ocupaciones")
+    @Query("""SELECT * 
+        FROM Ocupaciones
+        ORDER BY ocupacionId desc
+    """)
     fun getList(): Flow<List<OcupacionEntity>>
+
 
 }
 
